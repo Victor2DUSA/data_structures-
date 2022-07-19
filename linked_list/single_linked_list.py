@@ -66,8 +66,8 @@ class LinkedList:
         return True
 
 
-    def insert(self, index, value):
-        pass
+    
+        
     
 
     def pop_first(self): 
@@ -112,6 +112,38 @@ class LinkedList:
         return temp 
     
 
+    def insert(self, index, value):
+        if index < 0 or index >= self.length:
+            return False
+        if index == 0: 
+            return self.prepend(value)
+        if index  == self.length:
+            return self.append(value)
+
+        new_node = Node(value)
+        temp = self.get(index - 1)
+        new_node.next = temp.next
+        temp.next  = new_node
+        self.length += 1 
+        return True
+
+    def remove(self,index,):
+        if index < 0 or index >= self.length:
+            return None 
+
+        if index == 0:
+            return self.pop_first()
+        
+        if index == self.length-1: 
+            return self.pop()
+        
+        prev = self.get(index-1)
+        temp = prev.next
+        temp.next = None 
+        self.length -= 1 
+        return temp  
+
+
     def set_value(self, index, value):
         temp = self.get(index)
         if temp: 
@@ -127,6 +159,19 @@ class LinkedList:
         #         temp.value = value
         # return True 
 
+    def reverse(self): 
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp 
+        after = temp.next
+        before = None 
+
+        for _ in range(self.length): 
+            after = temp.next
+            temp.next = before 
+            before = temp 
+            temp = after 
+
 
     def print_list(self): 
         temp = self.head
@@ -134,13 +179,16 @@ class LinkedList:
             print(temp.value)
             temp = temp.next
 
-my_linked_list = LinkedList(11)
+
+my_linked_list = LinkedList(1)
+my_linked_list.append(2)
 my_linked_list.append(3)
-my_linked_list.append(23)
 # my_linked_list.print_list()
-my_linked_list.append(7)
-print(my_linked_list.set_value(1,4))
-my_linked_list.print_list()
+my_linked_list.append(4)
+my_linked_list.print_list() 
+
+print(my_linked_list.reverse())  
+my_linked_list.print_list() 
 
 # print(my_linked_list.pop())
 
